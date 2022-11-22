@@ -9,15 +9,25 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.applesforryuk.mylistmaking.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var todoListRecyclerView: RecyclerView
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        todoListRecyclerView = findViewById(R.id.lists_recuclerview)
+        todoListRecyclerView.layoutManager = LinearLayoutManager(this)
+        todoListRecyclerView.adapter = ToDoListAdapter()
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
