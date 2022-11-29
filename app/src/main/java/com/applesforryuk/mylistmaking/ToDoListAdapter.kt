@@ -14,12 +14,16 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
         return ToDoListViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+
         return toDoLists.size
     }
+
+    override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
+
+        holder.listPositionTextView.text = (position + 1).toString()
+        holder.listPositionTextView.text = toDoLists[position]
+    }
+
+
 }
