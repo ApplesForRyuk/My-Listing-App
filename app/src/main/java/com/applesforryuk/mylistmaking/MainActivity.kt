@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun showCreateToDoListDialog() {
-        val dialogTitle = "What is the name of your list"
-        val positiveButtonTitle = "Create"
+        val dialogTitle = getString(R.string.name_of_list)
+        val positiveButtonTitle = getString(R.string.create_list)
         val myDialog = AlertDialog.Builder(this)
         val toDoTitleEditText = EditText(this)
         toDoTitleEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
