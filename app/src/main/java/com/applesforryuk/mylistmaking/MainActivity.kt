@@ -1,10 +1,13 @@
 package com.applesforryuk.mylistmaking
 
 import android.os.Bundle
+import android.text.InputType
 
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.applesforryuk.mylistmaking.databinding.ActivityMainBinding
@@ -31,9 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding.contentMain.listsRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter()
 
-        binding.fab.setOnClickListener { view ->
-            val adapter = binding.contentMain.listsRecyclerview.adapter as ToDoListAdapter
-            adapter.addNewItem()
+        binding.fab.setOnClickListener { _ ->
+            showCreateToDoListDialog()
 
         }
 
@@ -57,8 +59,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun myTestMethod() {
-        println("Hello")
+
+    private fun showCreateToDoListDialog() {
+        val dialogTitle = "What is the name of your list"
+        val positiveButtonTitle = "Create"
+        val myDialog = AlertDialog.Builder(this)
+        val toDoTitleEditText = EditText(this)
+        toDoTitleEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+
+        myDialog.setTitle(dialogTitle)
+        myDialog.setView(toDoTitleEditText)
+
+        myDialog.setPositiveButton(positiveButtonTitle) {
+            dialog, _ ->
+            dialog.dismiss()
+        }
+        myDialog.create().show()
+
+
     }
 
 
