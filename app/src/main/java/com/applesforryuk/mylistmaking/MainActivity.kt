@@ -34,10 +34,12 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        val lists = listDataManager.readLists()
+
 
 
         binding.contentMain.listsRecyclerview.layoutManager = LinearLayoutManager(this)
-        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter()
+        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists)
 
 
         binding.fab.setOnClickListener { _ ->
@@ -79,7 +81,11 @@ class MainActivity : AppCompatActivity() {
         myDialog.setPositiveButton(positiveButtonTitle) {
             dialog, _ ->
             val adapter = binding.contentMain.listsRecyclerview.adapter as ToDoListAdapter
-            adapter.addNewItem(toDoTitleEditText.text.toString())
+            val list = TaskList(toDoTitleEditText.text.toString())
+            listDataManager.saveList(list)
+
+            adapter.addList(list)
+            //adapter.addNewItem(toDoTitleEditText.text.toString())
             dialog.dismiss()
         }
         myDialog.create().show()
