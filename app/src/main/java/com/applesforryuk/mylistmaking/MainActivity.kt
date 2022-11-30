@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var todoListRecyclerView: RecyclerView
+
 
 
 
@@ -72,6 +74,8 @@ class MainActivity : AppCompatActivity() {
 
         myDialog.setPositiveButton(positiveButtonTitle) {
             dialog, _ ->
+            val adapter = todoListRecyclerView.adapter as ToDoListAdapter
+            adapter.addNewItem(toDoTitleEditText.text.toString())
             dialog.dismiss()
         }
         myDialog.create().show()

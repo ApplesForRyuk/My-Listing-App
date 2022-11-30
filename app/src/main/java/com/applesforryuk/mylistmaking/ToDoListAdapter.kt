@@ -1,15 +1,21 @@
 package com.applesforryuk.mylistmaking
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
 
-    private var  toDoLists = mutableListOf("Android Development", "House work", "Errands","Supermarket")
+    private var  toDoLists = mutableListOf("Android Development", "House work", "Errands")
 
-    fun addNewItem() {
-        toDoLists.add("Todo List" + (toDoLists.size +1))
+
+    fun addNewItem(listName: String = "") {
+        if (listName.isEmpty()) {
+            toDoLists.add("Todo List" + (toDoLists.size +1))
+        } else {
+            toDoLists.add(listName)
+        }
         notifyDataSetChanged()
     }
 
