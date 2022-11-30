@@ -2,7 +2,7 @@ package com.applesforryuk.mylistmaking
 
 import android.os.Bundle
 import android.text.InputType
-
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -17,13 +17,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var todoListRecyclerView: RecyclerView
+
 
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.contentMain.listsRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter()
+
 
         binding.fab.setOnClickListener { _ ->
             showCreateToDoListDialog()
@@ -74,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         myDialog.setPositiveButton(positiveButtonTitle) {
             dialog, _ ->
-            val adapter = todoListRecyclerView.adapter as ToDoListAdapter
+            val adapter = binding.contentMain.listsRecyclerview.adapter as ToDoListAdapter
             adapter.addNewItem(toDoTitleEditText.text.toString())
             dialog.dismiss()
         }
