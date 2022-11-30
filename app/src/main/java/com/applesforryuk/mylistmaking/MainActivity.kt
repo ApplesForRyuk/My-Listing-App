@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    val listDataManager: ListDataManager = ListDataManager(this)
+
 
 
 
