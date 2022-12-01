@@ -3,18 +3,16 @@ package com.applesforryuk.mylistmaking
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.applesforryuk.mylistmaking.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -41,11 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         val lists = listDataManager.readLists()
 
-
-
         binding.contentMain.listsRecyclerview.layoutManager = LinearLayoutManager(this)
-        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists)
-
+        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists,this)
 
         binding.fab.setOnClickListener { _ ->
             showCreateToDoListDialog()
@@ -78,13 +73,13 @@ class MainActivity : AppCompatActivity() {
         val positiveButtonTitle = getString(R.string.create_list)
         val myDialog = AlertDialog.Builder(this)
         val toDoTitleEditText = EditText(this)
-        toDoTitleEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+        toDoTitleEditText.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
 
         myDialog.setTitle(dialogTitle)
         myDialog.setView(toDoTitleEditText)
 
-        myDialog.setPositiveButton(positiveButtonTitle) {
-            dialog, _ ->
+        myDialog.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             val adapter = binding.contentMain.listsRecyclerview.adapter as ToDoListAdapter
             val list = TaskList(toDoTitleEditText.text.toString())
             listDataManager.saveList(list)
@@ -92,20 +87,26 @@ class MainActivity : AppCompatActivity() {
             adapter.addList(list)
             //adapter.addNewItem(toDoTitleEditText.text.toString())
             dialog.dismiss()
+            //after dismissing dialog user is brought to the new activity
+            showTaskListItems(list)
         }
         myDialog.create().show()
+    }
 
         //creating an Intent and an extra
 
-        fun showTaskListItems(list:TaskList) {
-            val taskListItem = Intent(this,DetailActivity::class.java)
-            taskListItem.putExtra(INTENT_LIST_KEY,list)
-            startActivity(taskListItem)
+    private fun showTaskListItems(list: TaskList) {
+        val taskListItem = Intent(this, DetailActivity::class.java)
+        taskListItem.putExtra(INTENT_LIST_KEY, list)
+        startActivity(taskListItem)
 
-        }
+    }
 
-
+    override fun listItemClicked(list: TaskList) {
+        showTaskListItems(list)
     }
 
 
 }
+
+
