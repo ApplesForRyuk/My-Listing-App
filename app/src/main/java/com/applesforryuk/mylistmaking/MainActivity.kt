@@ -1,5 +1,6 @@
 package com.applesforryuk.mylistmaking
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -17,7 +18,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    val listDataManager: ListDataManager = ListDataManager(this)
+    private val listDataManager: ListDataManager = ListDataManager(this)
+
+    companion object {
+        const val INTENT_LIST_KEY = "list"
+    }
 
 
 
@@ -89,6 +94,15 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         myDialog.create().show()
+
+        //creating an Intent and an extra
+
+        fun showTaskListItems(list:TaskList) {
+            val taskListItem = Intent(this,DetailActivity::class.java)
+            taskListItem.putExtra(INTENT_LIST_KEY,list)
+            startActivity(taskListItem)
+
+        }
 
 
     }

@@ -13,14 +13,29 @@
         android:theme="@style/Theme.MyListMaking"
         tools:targetApi="31">
         <activity
+            android:name=".DetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyListMaking.NoActionBar">
             <intent-filter>
+
+                <!-- the activity presented when the app is launched -->
                 <action android:name="android.intent.action.MAIN" />
 
+                <!--
+                 the launcher indicating that the activity is the entry point/ should be showing in the application
+                 launcher
+                -->
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- enabling app indexing/appear in google search results -->
+                <category android:name="andoid.intent.action.VIEW" />
             </intent-filter>
 
             <meta-data
