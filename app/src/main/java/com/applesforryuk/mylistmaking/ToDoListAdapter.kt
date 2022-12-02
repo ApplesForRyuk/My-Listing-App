@@ -1,6 +1,5 @@
 package com.applesforryuk.mylistmaking
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,8 +24,8 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
 
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
 
-        holder.listPositionTextView.text = (position + 1).toString()
-        holder.listPositionTextView.text = lists[position].name
+        holder.listPositionTextView!!.text = (position + 1).toString()
+        holder.listPositionTextView!!.text = lists[position].name
         holder.itemView.setOnClickListener{
             clickListener.listItemClicked(lists[position])
         }
