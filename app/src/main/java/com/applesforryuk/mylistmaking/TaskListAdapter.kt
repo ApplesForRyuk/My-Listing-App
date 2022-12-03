@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class TaskListAdapter(private var list: TaskList) : RecyclerView.Adapter<TaskListViewHolder>() {
+class TaskListAdapter(var list: TaskList) : RecyclerView.Adapter<TaskListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
 
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.task_view_holder, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_view_holder, parent, false)
         return TaskListViewHolder(view)
-
     }
 
     override fun getItemCount(): Int {

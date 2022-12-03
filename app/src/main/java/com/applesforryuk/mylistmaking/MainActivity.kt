@@ -3,17 +3,16 @@ package com.applesforryuk.mylistmaking
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener {
-
     private lateinit var binding: ActivityMainBinding
 
     private val listDataManager: ListDataManager = ListDataManager(this)
@@ -22,32 +21,21 @@ class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener 
         const val INTENT_LIST_KEY = "list"
     }
 
-
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
         val lists = listDataManager.readLists()
 
         binding.contentMain.listsRecyclerview.layoutManager = LinearLayoutManager(this)
-        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists,this)
+        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
 
-        binding.fab.setOnClickListener { _ ->
+        binding.fab.setOnClickListener {
             showCreateToDoListDialog()
-
         }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -93,20 +81,14 @@ class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener 
         myDialog.create().show()
     }
 
-        //creating an Intent and an extra
-
+    // creating an Intent and an extra
     private fun showTaskListItems(list: TaskList) {
-        val taskListItem = Intent(this, DetailActivity::class.java)
-        taskListItem.putExtra(INTENT_LIST_KEY, list)
-        startActivity(taskListItem)
-
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(INTENT_LIST_KEY, list)
+        startActivity(intent)
     }
 
     override fun listItemClicked(list: TaskList) {
         showTaskListItems(list)
     }
-
-
 }
-
-
