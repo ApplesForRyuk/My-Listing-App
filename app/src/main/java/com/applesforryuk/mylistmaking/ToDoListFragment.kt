@@ -13,29 +13,43 @@ import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
 
 class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
+    private var _binding: FragmentToDoListBinding? = null
+    // This property is only valid between onCreateView and
+// onDestroyView.
+    private val binding get() = _binding!!
+
+
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var listDataManager: ListDataManager
 
-    private lateinit var binding: FragmentToDoListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
-        binding = FragmentToDoListBinding.inflate(layoutInflater)
+
+
 
     }
+
 
     override fun onCreateView(
-        //this method is when the fragment acquires a needed layout in order to be presented within the activity
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_do_list, container, false)
+        _binding = FragmentToDoListBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 
 
@@ -46,8 +60,9 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
 
 
-        binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
         binding.listsRecyclerview.layoutManager = LinearLayoutManager(activity)
+        binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
+
 
 
 
