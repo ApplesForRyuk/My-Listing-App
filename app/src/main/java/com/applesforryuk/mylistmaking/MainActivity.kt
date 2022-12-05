@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.add
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.ActivityMainBinding
 
@@ -39,6 +40,10 @@ class MainActivity : AppCompatActivity(), ToDoListFragment.OnFragmentInteraction
         binding.fab.setOnClickListener {
             showCreateToDoListDialog()
         }
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, toDoListFragment)
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
