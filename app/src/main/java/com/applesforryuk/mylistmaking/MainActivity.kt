@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener {
+class MainActivity : AppCompatActivity(), ToDoListFragment.OnFragmentInteractionListener {
     private lateinit var binding: ActivityMainBinding
 
-    private val listDataManager: ListDataManager = ListDataManager(this)
+    private var toDoListFragment = ToDoListFragment.newInstance()
+
+
+
 
     companion object {
         const val INTENT_LIST_KEY = "list"
@@ -29,10 +32,9 @@ class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener 
 
         setSupportActionBar(binding.toolbar)
 
-        val lists = listDataManager.readLists()
 
-        binding.contentMain.listsRecyclerview.layoutManager = LinearLayoutManager(this)
-        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
+
+
 
         binding.fab.setOnClickListener {
             showCreateToDoListDialog()
@@ -45,23 +47,18 @@ class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener 
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode== LIST_DETAIL_REQUEST_CODE) {
             data?.let{
                 val list = data.getParcelableExtra<TaskList>(INTENT_LIST_KEY)
-                list?.let { it1 -> listDataManager.saveList(it1) }
-                updateLists()
-
+                toDoListFragment.saveList(list)
             }
         }
     }
 
-    private fun updateLists() {
-        val lists = listDataManager.readLists()
-        binding.contentMain.listsRecyclerview.adapter = ToDoListAdapter(lists,this)
 
-    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,12 +84,12 @@ class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener 
         myDialog.setView(toDoTitleEditText)
 
         myDialog.setPositiveButton(positiveButtonTitle) { dialog, _ ->
-            val adapter = binding.contentMain.listsRecyclerview.adapter as ToDoListAdapter
-            val list = TaskList(toDoTitleEditText.text.toString())
-            listDataManager.saveList(list)
 
-            adapter.addList(list)
-            //adapter.addNewItem(toDoTitleEditText.text.toString())
+            val list = TaskList(toDoTitleEditText.text.toString())
+
+            toDoListFragment.addList(list)
+
+
             dialog.dismiss()
             //after dismissing dialog user is brought to the new activity
             showTaskListItems(list)
@@ -108,7 +105,7 @@ class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener 
         startActivityForResult(intent, LIST_DETAIL_REQUEST_CODE)
     }
 
-    override fun listItemClicked(list: TaskList) {
+    override fun onTodoListClicked(list: TaskList) {
         showTaskListItems(list)
     }
 }
