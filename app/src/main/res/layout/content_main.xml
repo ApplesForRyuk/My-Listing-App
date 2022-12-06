@@ -7,6 +7,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
+    <!--
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.applesforryuk.mylistmaking.ToDoListFragment"
+            android:id="@+id/to_do_list_fragment" /> -->
 
 
 
@@ -14,4 +20,12 @@
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,13 +25,9 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
         }
 
-
-
-    }
 
 
     override fun onCreateView(
@@ -43,10 +39,10 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         return binding.root
     }
 
-    override fun onDestroyView() {
+    /*override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
+    } */
 
 
 

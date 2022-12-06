@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), ToDoListFragment.OnFragmentInteraction
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, toDoListFragment)
             .commit()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -9,9 +9,14 @@ import android.view.ViewGroup
 
 class TaskDetailFragment : Fragment() {
 
+    lateinit var list: TaskList
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            list = it.getParcelable(ARG_LIST)!!
+        }
 
     }
 
@@ -20,13 +25,23 @@ class TaskDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.fragment_task_detail, container, false)
     }
 
     companion object {
 
+        private const val ARG_LIST = "list"
 
-        fun newInstance(list: TaskList) = TaskDetailFragment()
+
+        fun newInstance(list: TaskList): TaskDetailFragment {
+
+            val bundle = Bundle()
+
+            bundle.putParcelable(ARG_LIST, list)
+            val fragment = TaskDetailFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
 
                 }
 
