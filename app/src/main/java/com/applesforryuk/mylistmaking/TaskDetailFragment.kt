@@ -29,6 +29,6 @@ class TaskDetailFragment : Fragment() {
         fun newInstance(list: TaskList) = TaskDetailFragment()
 
                 }
-            }
-    }
+
+
 }
