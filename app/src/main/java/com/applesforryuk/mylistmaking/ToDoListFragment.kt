@@ -16,6 +16,7 @@ import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
 
 class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
+    private lateinit var listDataManager: ListDataManager
     private var _binding: FragmentToDoListBinding? = null
     // This property is only valid between onCreateView and
 // onDestroyView.
@@ -23,7 +24,7 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
 
 
-    private lateinit var listDataManager: ListDataManager
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +61,7 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         binding.listsRecyclerview.layoutManager = LinearLayoutManager(activity)
         binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
 
-        binding.fab.setOnClickListener {
+        binding.fab.setOnClickListener { _ ->
             showCreateToDoListDialog()
         }
 
