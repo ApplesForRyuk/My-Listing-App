@@ -1,11 +1,15 @@
 package com.applesforryuk.mylistmaking
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
 
@@ -18,7 +22,6 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     private val binding get() = _binding!!
 
 
-    private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var listDataManager: ListDataManager
 
@@ -39,16 +42,16 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         return binding.root
     }
 
-    /*override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    } */
 
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.let{
+            listDataManager = ListDataManager(it)
+        }
 
         val lists = listDataManager.readLists()
 
@@ -57,23 +60,15 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         binding.listsRecyclerview.layoutManager = LinearLayoutManager(activity)
         binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
 
-
-
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-            listDataManager = ListDataManager(context)
+        binding.fab.setOnClickListener {
+            showCreateToDoListDialog()
         }
+
+
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
+
+
 
     interface OnFragmentInteractionListener {
         fun onTodoListClicked(list: TaskList)
@@ -86,10 +81,10 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     }
 
     override fun listItemClicked(list: TaskList) {
-        listener?.onTodoListClicked(list)
+
     }
 
-    fun addList(list: TaskList) {
+    private fun addList(list: TaskList) {
         listDataManager.saveList(list)
         val toDoAdapter = binding.listsRecyclerview.adapter as ToDoListAdapter
         toDoAdapter.addList(list)
@@ -100,9 +95,42 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         updateLists()
     }
 
+    private fun showCreateToDoListDialog() {
+        activity?.let {
+            val dialogTitle = getString(R.string.name_of_list)
+            val positiveButtonTitle = getString(R.string.create_list)
+            val myDialog = AlertDialog.Builder(it)
+            val toDoTitleEditText = EditText(it)
+            toDoTitleEditText.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+
+            myDialog.setTitle(dialogTitle)
+            myDialog.setView(toDoTitleEditText)
+
+            myDialog.setPositiveButton(positiveButtonTitle) { dialog, _ ->
+
+                val list = TaskList(toDoTitleEditText.text.toString())
+
+                addList(list)
+
+
+                dialog.dismiss()
+                //after dismissing dialog user is brought to the new activity
+                showTaskListItems(list)
+            }
+            myDialog.create().show()
+
+        }
+
+    }
+
+    private fun showTaskListItems(list: TaskList) {
+
+    }
+
     private fun updateLists() {
         val lists = listDataManager.readLists()
-        binding.listsRecyclerview.adapter = ToDoListAdapter(lists,this)
+        binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
 
     }
 }
