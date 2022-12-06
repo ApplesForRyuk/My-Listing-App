@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
 
@@ -41,8 +40,7 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentToDoListBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {
