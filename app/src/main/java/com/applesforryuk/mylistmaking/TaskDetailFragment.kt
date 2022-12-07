@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentTaskDetailBinding
 import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
@@ -18,6 +19,7 @@ class TaskDetailFragment : Fragment(){
 
     lateinit var list: TaskList
     lateinit var addTaskButton: FloatingActionButton
+    lateinit var listDataManager: ListDataManager
 
     private var _binding: FragmentTaskDetailBinding? = null
     private val binding get() = _binding!!
@@ -55,6 +57,7 @@ class TaskDetailFragment : Fragment(){
 
 
         }
+        listDataManager = ViewModelProviders.of(this)[ListDataManager::class.java]
     }
 
     private fun showCreateTaskDialog() {
