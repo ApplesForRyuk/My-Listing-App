@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
 
@@ -51,7 +52,7 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         activity?.let{
-            listDataManager = ListDataManager(it)
+            listDataManager = ViewModelProviders.of(this)[ListDataManager::class.java]
         }
 
         val lists = listDataManager.readLists()
