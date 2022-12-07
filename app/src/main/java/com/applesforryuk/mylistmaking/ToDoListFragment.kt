@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentToDoListBinding
 
@@ -83,6 +84,9 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     }
 
     override fun listItemClicked(list: TaskList) {
+        view?.let {
+            it.findNavController().navigate(R.id.action_toDoListFragment_to_taskDetailFragment)
+        }
 
     }
 
