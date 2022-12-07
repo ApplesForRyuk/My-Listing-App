@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
         Navigation.findNavController(this, R.id.nav_host_fragment)
 
 
@@ -27,6 +28,12 @@ class MainActivity : AppCompatActivity(){
             .add(R.id.fragment_container, toDoListFragment)
             .commit()
 
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        binding.toolbar.title = "Listmaker"
     }
 
 

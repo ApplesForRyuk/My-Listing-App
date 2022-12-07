@@ -84,9 +84,8 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     }
 
     override fun listItemClicked(list: TaskList) {
-        view?.let {
-            it.findNavController().navigate(R.id.action_toDoListFragment_to_taskDetailFragment)
-        }
+        showTaskListItems(list)
+
 
     }
 
@@ -131,6 +130,10 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     }
 
     private fun showTaskListItems(list: TaskList) {
+        view?.let {
+            val action = ToDoListFragmentDirections.actionToDoListFragmentToTaskDetailFragment(list.name)
+            it.findNavController().navigate(action)
+        }
 
     }
 

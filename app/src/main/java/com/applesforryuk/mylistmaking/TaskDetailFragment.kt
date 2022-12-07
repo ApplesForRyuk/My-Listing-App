@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toolbar
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentTaskDetailBinding
@@ -17,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TaskDetailFragment : Fragment(){
 
-    lateinit var list: TaskList
+    private lateinit var list: TaskList
     lateinit var addTaskButton: FloatingActionButton
     lateinit var listDataManager: ListDataManager
 
@@ -25,14 +27,6 @@ class TaskDetailFragment : Fragment(){
     private val binding get() = _binding!!
     private var adapter: TaskListAdapter? = null
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            list = it.getParcelable(ARG_LIST)!!
-        }
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,20 +38,29 @@ class TaskDetailFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        listDataManager = ViewModelProviders.of(this)[ListDataManager::class.java]
+        arguments?.let {
+            val args = TaskDetailFragmentArgs.fromBundle(it)
+            list = listDataManager.readLists().filter { list -> list.name == args.listString } [0]
+        }
+
         activity?.let{
             binding.taskListRecyclerview.layoutManager = LinearLayoutManager(it)
-            adapter = list?.let { TaskListAdapter(it) }
+            adapter = list?.let { TaskListAdapter(list) }
             binding.taskListRecyclerview.adapter = adapter
+
+            //it.toolbar?.title = list.name
 
             addTaskButton = view.findViewById(R.id.add_task_button)
             addTaskButton.setOnClickListener {
                 showCreateTaskDialog()
-
         }
 
 
         }
-        listDataManager = ViewModelProviders.of(this)[ListDataManager::class.java]
+
     }
 
     private fun showCreateTaskDialog() {
@@ -70,7 +73,8 @@ class TaskDetailFragment : Fragment(){
                 .setPositiveButton(R.string.add_task) {
                         dialog, _ ->
                     val task = taskEditText.text.toString()
-                    list?.tasks?.add(task)
+                    list.tasks.add(task)
+                    listDataManager.saveList(list)
                     dialog.dismiss()
                 }
                 .create()
