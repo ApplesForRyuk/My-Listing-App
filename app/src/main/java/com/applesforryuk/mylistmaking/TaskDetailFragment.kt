@@ -1,49 +1,83 @@
 package com.applesforryuk.mylistmaking
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.applesforryuk.mylistmaking.databinding.FragmentTaskDetailBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TaskDetailFragment : Fragment() {
+    private var _binding: FragmentTaskDetailBinding? = null
+    private val binding get() = _binding!!
 
-    lateinit var list: TaskList
+    private lateinit var list: TaskList
+    lateinit var addTaskButton: FloatingActionButton
+    lateinit var listDataManager: ListDataManager
 
+    private var adapter: TaskListAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            list = it.getParcelable(ARG_LIST)!!
-        }
-
-    }
+    private lateinit var callback: Callback
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_task_detail, container, false)
+        savedInstanceState: Bundle?,
+    ): View {
+        _binding = FragmentTaskDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        private const val ARG_LIST = "list"
-
-
-        fun newInstance(list: TaskList): TaskDetailFragment {
-
-            val bundle = Bundle()
-
-            bundle.putParcelable(ARG_LIST, list)
-            val fragment = TaskDetailFragment()
-            fragment.arguments = bundle
-            return fragment
+        listDataManager = ViewModelProviders.of(this)[ListDataManager::class.java]
+        arguments?.let {
+            val args = TaskDetailFragmentArgs.fromBundle(it)
+            list = listDataManager.readLists().filter { list -> list.name == args.listString }[0]
         }
 
+        activity?.let {
+            binding.taskListRecyclerview.layoutManager = LinearLayoutManager(it)
+            adapter = TaskListAdapter(list)
+            binding.taskListRecyclerview.adapter = adapter
+
+            callback.updateToolbarTitle(list.name)
+
+            addTaskButton = view.findViewById(R.id.add_task_button)
+            addTaskButton.setOnClickListener {
+                showCreateTaskDialog()
+            }
+        }
+    }
+
+    private fun showCreateTaskDialog() {
+        activity?.let {
+            val taskEditText = EditText(it)
+            taskEditText.inputType = InputType.TYPE_CLASS_TEXT
+            AlertDialog.Builder(it)
+                .setTitle(R.string.task_to_add)
+                .setView(taskEditText)
+                .setPositiveButton(R.string.add_task) { dialog, _ ->
+                    val task = taskEditText.text.toString()
+                    list.tasks.add(task)
+                    listDataManager.saveList(list)
+                    dialog.dismiss()
                 }
+                .create()
+                .show()
+        }
 
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = context as Callback
+    }
 }
