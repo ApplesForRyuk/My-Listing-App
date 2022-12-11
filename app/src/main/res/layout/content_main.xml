@@ -15,17 +15,4 @@
             android:id="@+id/to_do_list_fragment" /> -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

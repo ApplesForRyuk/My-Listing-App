@@ -3,7 +3,6 @@ package com.applesforryuk.mylistmaking
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.telecom.Call
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applesforryuk.mylistmaking.databinding.FragmentTaskDetailBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class TaskDetailFragment : Fragment() {
     private var _binding: FragmentTaskDetailBinding? = null

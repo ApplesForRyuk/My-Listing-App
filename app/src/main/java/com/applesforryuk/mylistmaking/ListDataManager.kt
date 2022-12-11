@@ -12,7 +12,6 @@ class ListDataManager(application: Application) : AndroidViewModel(application) 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit()
         sharedPrefs.putStringSet(list.name, list.tasks.toHashSet())
         sharedPrefs.apply()
-
     }
 
     fun readLists(): ArrayList<TaskList> {
