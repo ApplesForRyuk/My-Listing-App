@@ -4,20 +4,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
 
     <TextView
         android:id="@+id/textview_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Task list item" />
+        tools:text="Task list item"/>
 
-    <ImageButton
-        android:id="@+id/completeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        />
 
 
 

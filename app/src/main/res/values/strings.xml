@@ -5,4 +5,5 @@
     <string name="task_to_add">What is the task you want to add?</string>
     <string name="add_task">Add task</string>
     <string name="addtodo">AddTODO</string>
+    <string name="checkbox">Checkbox</string>
 </resources>

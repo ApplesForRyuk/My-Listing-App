@@ -5,6 +5,19 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <ImageButton
+        android:id="@+id/completeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="15dp"
+        android:contentDescription="@string/checkbox"
+        android:minHeight="48dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:src="@drawable/unchecked_24"
+        tools:ignore="RedundantDescriptionCheck" />
+
     <TextView
         android:id="@+id/itemNumber"
         android:layout_width="wrap_content"
