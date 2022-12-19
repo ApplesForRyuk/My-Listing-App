@@ -30,13 +30,6 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
 
     }
 
-//    private fun toggleStrikeThrough(listTitleTextView: TextView, isChecked: Boolean) {
-//        if (isChecked) {
-//            listTitleTextView.paintFlags   = listTitleTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//        } else {
-//            listTitleTextView.paintFlags  = listTitleTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-//        }
-//    }
 
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         holder.listPositionTextView?.text = (position + 1).toString()
