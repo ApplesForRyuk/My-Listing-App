@@ -1,5 +1,6 @@
 package com.applesforryuk.mylistmaking
 
+import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -38,14 +39,20 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
             clickListener.listItemClicked(lists[position])
         }
 //        val isDone: Boolean = holder.checkedTodo.isChecked
+        holder.itemView.apply{
+            holder.checkedTodo.setOnClickListener {
+                if (holder.checkedTodo.isChecked) {
+                    holder.listPositionTextView?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    holder.listPositionTextView?.setTextColor(Color.MAGENTA)
+                }
 
-        holder.checkedTodo.setOnClickListener {
-            if (holder.checkedTodo.isChecked) {
-                holder.listPositionTextView?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+
             }
 
-
         }
+
+
     }
 
 
