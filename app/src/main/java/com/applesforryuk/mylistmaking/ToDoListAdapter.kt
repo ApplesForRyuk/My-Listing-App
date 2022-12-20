@@ -1,7 +1,9 @@
 package com.applesforryuk.mylistmaking
 
+import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickListener: TodoListClickListener) :
@@ -20,12 +22,16 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
         return lists.size
     }
 
+
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         holder.listPositionTextView?.text = (position + 1).toString()
         holder.listPositionTextView?.text = lists[position].name
         holder.itemView.setOnClickListener {
             clickListener.listItemClicked(lists[position])
         }
+
+
+
     }
 
     fun addList(list: TaskList) {
