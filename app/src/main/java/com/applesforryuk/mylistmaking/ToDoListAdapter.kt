@@ -44,7 +44,7 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
                 if (holder.checkedTodo.isChecked) {
                     holder.listPositionTextView?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
-                    holder.listPositionTextView?.setTextColor(Color.MAGENTA)
+//                    holder.listPositionTextView?.setTextColor(Color.MAGENTA)
                     holder.listPositionTextView?.paintFlags = Paint.ANTI_ALIAS_FLAG
                 }
 

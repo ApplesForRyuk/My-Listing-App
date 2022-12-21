@@ -6,4 +6,6 @@
     <string name="add_task">Add task</string>
     <string name="addtodo">AddTODO</string>
     <string name="checkbox">Checkbox</string>
+    <string name="delete_option">Delete</string>
+    <string name="edit_option">Edit</string>
 </resources>
