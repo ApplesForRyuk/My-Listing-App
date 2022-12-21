@@ -20,9 +20,6 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.todo_list_view_holder, parent, false)
         return ToDoListViewHolder(view)
-
-
-
     }
 
     override fun getItemCount(): Int {
