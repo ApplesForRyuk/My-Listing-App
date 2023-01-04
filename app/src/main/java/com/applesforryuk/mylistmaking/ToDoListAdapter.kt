@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,33 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.todo_list_view_holder, parent, false)
+
+
+//        view.setOnLongClickListener {
+//            val menu = PopupMenu(it.context, it)
+//            menu.inflate(R.menu.option_menu)
+//            menu.setOnMenuItemClickListener { item ->
+//                when (item.itemId) {
+//                    R.id.delete_option -> {
+//                        val position =
+//                        lists.removeAt(position)
+//                        notifyItemRemoved(position)
+//                        true
+//                    }
+//                    R.id.edit_option -> {
+//                        // TODO: handle edit menu item click
+//                        true
+//                    }
+//                    else -> false
+//                }
+//            }
+//            menu.show()
+//            true
+//
+//
+//        }
         return ToDoListViewHolder(view)
+
     }
 
     override fun getItemCount(): Int {
@@ -50,7 +77,37 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
 
         }
 
+        holder.itemView.setOnLongClickListener {
+            showPopupMenu(it, position)
+            true
+        }
 
+
+
+
+
+
+    }
+
+    private fun showPopupMenu(view: View, position: Int) {
+        PopupMenu(view.context, view).apply {
+            inflate(R.menu.option_menu)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.delete_option -> {
+                        lists.removeAt(position)
+                        notifyItemRemoved(position)
+                        true
+                    }
+                    R.id.edit_option -> {
+                        // TODO: handle edit menu item click
+                        true
+                    }
+                    else -> false
+                }
+            }
+            show()
+        }
     }
 
 
