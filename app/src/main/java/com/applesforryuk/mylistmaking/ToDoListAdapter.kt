@@ -62,30 +62,20 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
         holder.itemView.setOnClickListener {
             clickListener.listItemClicked(lists[position])
         }
-//        val isDone: Boolean = holder.checkedTodo.isChecked
         holder.itemView.apply{
             holder.checkedTodo.setOnClickListener {
                 if (holder.checkedTodo.isChecked) {
                     holder.listPositionTextView?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
-//                    holder.listPositionTextView?.setTextColor(Color.MAGENTA)
                     holder.listPositionTextView?.paintFlags = Paint.ANTI_ALIAS_FLAG
                 }
-
-
             }
-
         }
 
         holder.itemView.setOnLongClickListener {
             showPopupMenu(it, position)
             true
         }
-
-
-
-
-
 
     }
 
