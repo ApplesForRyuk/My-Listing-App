@@ -27,4 +27,11 @@ class ListDataManager(application: Application) : AndroidViewModel(application) 
 
         return taskLists
     }
+
+    fun deleteList(list: TaskList) {
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        sharedPrefs.remove(list.name)
+        sharedPrefs.apply()
+    }
+
 }

@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickListener: TodoListClickListener) :
+class ToDoListAdapter(private var lists: ArrayList<TaskList>, private val clickListener: TodoListClickListener) :
     RecyclerView.Adapter<ToDoListViewHolder>() {
     interface TodoListClickListener {
         fun listItemClicked(list: TaskList)
@@ -20,39 +20,12 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.todo_list_view_holder, parent, false)
-
-
-//        view.setOnLongClickListener {
-//            val menu = PopupMenu(it.context, it)
-//            menu.inflate(R.menu.option_menu)
-//            menu.setOnMenuItemClickListener { item ->
-//                when (item.itemId) {
-//                    R.id.delete_option -> {
-//                        val position =
-//                        lists.removeAt(position)
-//                        notifyItemRemoved(position)
-//                        true
-//                    }
-//                    R.id.edit_option -> {
-//                        // TODO: handle edit menu item click
-//                        true
-//                    }
-//                    else -> false
-//                }
-//            }
-//            menu.show()
-//            true
-//
-//
-//        }
         return ToDoListViewHolder(view)
 
     }
 
     override fun getItemCount(): Int {
         return lists.size
-
-
     }
 
 

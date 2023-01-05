@@ -59,6 +59,12 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         toDoAdapter.addList(list)
     }
 
+    private fun deleteList(list: TaskList) {
+        listDataManager.saveList(list)
+        val toDoAdapter = binding.listsRecyclerview.adapter as ToDoListAdapter
+        toDoAdapter.addList(list)
+    }
+
     fun saveList(list: TaskList?) {
         list?.let { it1 -> listDataManager.saveList(it1) }
         updateLists()
@@ -102,4 +108,5 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         val lists = listDataManager.readLists()
         binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
     }
+
 }
