@@ -100,7 +100,7 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
                         true
                     }
                     R.id.edit_option -> {
-                        // TODO: handle edit menu item click
+                        editList(position)
                         true
                     }
                     else -> false
@@ -108,6 +108,11 @@ class ToDoListAdapter(private val lists: ArrayList<TaskList>, private val clickL
             }
             show()
         }
+    }
+
+    private fun editList(position: Int) {
+        val list = lists[position]
+
     }
 
 
