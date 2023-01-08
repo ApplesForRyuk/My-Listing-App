@@ -13,9 +13,4 @@ class ToDoListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     var checkedTodo: CheckBox = itemView.findViewById<CheckBox>(R.id.checking_box)
     var deleteOption: TextView? = itemView.findViewById<TextView>(R.id.delete_option)
     var editOption: TextView? = itemView.findViewById<TextView>(R.id.edit_option)
-
-
-
-
-
 }

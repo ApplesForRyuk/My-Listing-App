@@ -11,7 +11,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoListAdapter(private var lists: ArrayList<TaskList>, private val clickListener: TodoListClickListener) :
+class ToDoListAdapter(
+    private var lists: ArrayList<TaskList>,
+    private val clickListener: TodoListClickListener
+) :
     RecyclerView.Adapter<ToDoListViewHolder>() {
     interface TodoListClickListener {
         fun listItemClicked(list: TaskList)
@@ -32,10 +35,11 @@ class ToDoListAdapter(private var lists: ArrayList<TaskList>, private val clickL
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         holder.listPositionTextView?.text = (position + 1).toString()
         holder.listPositionTextView?.text = lists[position].name
+
         holder.itemView.setOnClickListener {
             clickListener.listItemClicked(lists[position])
         }
-        holder.itemView.apply{
+        holder.itemView.apply {
             holder.checkedTodo.setOnClickListener {
                 if (holder.checkedTodo.isChecked) {
                     holder.listPositionTextView?.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

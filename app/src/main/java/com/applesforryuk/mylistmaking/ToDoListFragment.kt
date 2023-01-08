@@ -40,6 +40,9 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         }
 
         val lists = listDataManager.readLists()
+//        val bottomSheet = binding.bottomSheet
+//        val behaviorOfBottomSheet = BottomSheetBehavior.from(bottomSheet)
+
 
         binding.listsRecyclerview.layoutManager = LinearLayoutManager(activity)
         binding.listsRecyclerview.adapter = ToDoListAdapter(lists, this)
@@ -47,6 +50,7 @@ class ToDoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         binding.fab.setOnClickListener {
             showCreateToDoListDialog()
         }
+
     }
 
     override fun listItemClicked(list: TaskList) {
