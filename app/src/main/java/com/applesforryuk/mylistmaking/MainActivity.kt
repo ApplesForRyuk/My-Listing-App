@@ -1,6 +1,7 @@
 package com.applesforryuk.mylistmaking
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
@@ -16,9 +17,7 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
-
         findNavController(R.id.nav_host_fragment)
     }
 
